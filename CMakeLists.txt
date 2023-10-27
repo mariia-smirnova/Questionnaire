@@ -17,6 +17,7 @@ qt_add_executable(Questionnaire
 main.cpp
 login.h login.cpp login.ui
 roomforlist.h roomforlist.cpp roomforlist.ui
+constructor.h constructor.cpp constructor.ui
 )
 
 
