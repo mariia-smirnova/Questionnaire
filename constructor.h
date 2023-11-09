@@ -2,6 +2,7 @@
 #define CONSTRUCTOR_H
 
 #include <QWidget>
+#include <QLabel>
 
 namespace Ui {
 class Constructor;
@@ -17,6 +18,17 @@ public:
 
 private:
     Ui::Constructor *ui;
+    QLabel* label;
+
+    // QWidget interface
+protected:
+    void mousePressEvent(QMouseEvent *event) override;
+    void dragEnterEvent(QDragEnterEvent *event) override;
+    void dropEvent(QDropEvent *event) override;
+
+    // QWidget interface
+protected:
+    void dragMoveEvent(QDragMoveEvent *event) override;
 };
 
 #endif // CONSTRUCTOR_H
