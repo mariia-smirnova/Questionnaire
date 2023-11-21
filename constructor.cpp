@@ -5,6 +5,7 @@
 #include <QMimeData>
 #include <QDrag>
 #include <QMouseEvent>
+#include "multipleanswer.h"
 
 Constructor::Constructor(QWidget *parent) :
     QWidget(parent),
@@ -12,7 +13,9 @@ Constructor::Constructor(QWidget *parent) :
 {
     ui->setupUi(this);
     label = new QLabel("Hello World");
+    ui->left->addWidget(new MultipleAnswer("?", {"1","2","3","4"}));
     ui->left->addWidget(label);
+
     setAcceptDrops(true);
 }
 
@@ -38,6 +41,7 @@ void Constructor::mousePressEvent(QMouseEvent *event)
         QDrag *drag = new QDrag(this);
         drag->setMimeData(mimeData);
         QPixmap pixmap("C:/QtProjects/Questionnaire/Red.png");
+        pixmap=pixmap.scaled(pixmap.size()/20);
         drag->setPixmap(pixmap);
 
 

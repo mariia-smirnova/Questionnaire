@@ -18,6 +18,9 @@ main.cpp
 login.h login.cpp login.ui
 roomforlist.h roomforlist.cpp roomforlist.ui
 constructor.h constructor.cpp constructor.ui
+singleanswer.h singleanswer.cpp singleanswer.ui
+multipleanswer.h multipleanswer.cpp multipleanswer.ui
+freeanswer.h freeanswer.cpp freeanswer.ui
 )
 
 
