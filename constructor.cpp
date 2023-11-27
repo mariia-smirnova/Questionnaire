@@ -12,9 +12,6 @@ Constructor::Constructor(QWidget *parent) :
     ui(new Ui::Constructor)
 {
     ui->setupUi(this);
-    label = new QLabel("Hello World");
-    ui->left->addWidget(new MultipleAnswer("?", {"1","2","3","4"}));
-    ui->left->addWidget(label);
 
     setAcceptDrops(true);
 }
@@ -28,15 +25,15 @@ Constructor::~Constructor()
 void Constructor::mousePressEvent(QMouseEvent *event)
 {
     if(event->button()==Qt::LeftButton &&
-        label->geometry().contains(event->pos()))
+        ui->multiple->geometry().contains(event->pos()))
     {
         QByteArray itemData;
-        QDataStream dataStream(&itemData, QIODevice::WriteOnly);
+        /*QDataStream dataStream(&itemData, QIODevice::WriteOnly);
 
-        dataStream << label->text();
+        dataStream << ui->multiple->text();*/
 
         QMimeData *mimeData = new QMimeData;
-        mimeData->setData("label", itemData);
+        mimeData->setData("multiple", itemData);
 
         QDrag *drag = new QDrag(this);
         drag->setMimeData(mimeData);
@@ -51,7 +48,7 @@ void Constructor::mousePressEvent(QMouseEvent *event)
 
 void Constructor::dragEnterEvent(QDragEnterEvent *event)
 {
-    if (event->mimeData()->hasFormat("label"))
+    if (event->mimeData()->hasFormat("multiple"))
         event->accept();
     else
         event->ignore();
@@ -59,14 +56,15 @@ void Constructor::dragEnterEvent(QDragEnterEvent *event)
 
 void Constructor::dropEvent(QDropEvent *event)
 {
-    if (event->mimeData()->hasFormat("label"))
+    if (event->mimeData()->hasFormat("multiple"))
     {
-        QByteArray itemData = event->mimeData()->data("label");
+        /*QByteArray itemData = event->mimeData()->data("label");
         QDataStream dataStream(&itemData, QIODevice::ReadOnly);
         QString str;
         dataStream >> str;
         auto b = new QLabel(str);
-        ui->right->addWidget(b);
+        ui->right->addWidget(b);*/
+        ui->left->addWidget(new MultipleAnswer("?", {"","","",""}));
 
         event->setDropAction(Qt::MoveAction);
         event->accept();
@@ -80,7 +78,7 @@ void Constructor::dropEvent(QDropEvent *event)
 
 void Constructor::dragMoveEvent(QDragMoveEvent *event)
 {
-    if (event->mimeData()->hasFormat("label")) {
+    if (event->mimeData()->hasFormat("multiple")) {
 
         event->setDropAction(Qt::MoveAction);
         event->accept();

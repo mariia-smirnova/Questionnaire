@@ -41,6 +41,27 @@
    <item>
     <layout class="QVBoxLayout" name="right">
      <item>
+      <widget class="QLabel" name="multiple">
+       <property name="text">
+        <string>Multiple</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="single">
+       <property name="text">
+        <string>Single</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="free">
+       <property name="text">
+        <string>Free</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>

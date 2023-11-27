@@ -18,7 +18,6 @@ public:
 
 private:
     Ui::Constructor *ui;
-    QLabel* label;
 
     // QWidget interface
 protected:
