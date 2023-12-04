@@ -12,7 +12,7 @@ class MultipleAnswer : public QWidget
     Q_OBJECT
 
 public:
-    explicit MultipleAnswer(QString question, QVector<QString> answers, QWidget *parent = nullptr);
+    explicit MultipleAnswer(QString question, QList<QPair<bool,QString>> answers, QWidget *parent = nullptr);
     ~MultipleAnswer();
 
 private:

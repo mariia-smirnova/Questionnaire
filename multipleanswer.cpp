@@ -1,15 +1,19 @@
 #include "multipleanswer.h"
 #include "ui_multipleanswer.h"
+#include <QCheckBox>
 
-MultipleAnswer::MultipleAnswer(QString question, QVector<QString> answers, QWidget *parent) :
+MultipleAnswer::MultipleAnswer(QString question, QList<QPair<bool,QString>> answers, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MultipleAnswer)
 {
     ui->setupUi(this);
     ui->question->setText(question);
-    for(int i=0; i<answers.size(); i++)
+    for(const auto& answer:answers)
     {
-        dynamic_cast<QCheckBox*>(ui->answers->itemAt(i)->widget())->setText(answers[i]);
+        auto box = new QCheckBox(answer.second);
+        box ->setChecked(answer.first);
+        box->setEnabled(false);
+        ui->answers->addWidget(box);
     }
 }
 
