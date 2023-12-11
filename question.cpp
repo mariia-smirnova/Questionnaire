@@ -16,21 +16,29 @@ Question::~Question()
 
 void Question::on_typeQuestion_currentTextChanged(const QString &arg1)
 {
-    if (ui->typeQuestion->currentText()=="Multiple" && arg1=="Single")
-        return;
-    if (ui->typeQuestion->currentText()=="Single" && arg1=="Multiple")
-        return;
     if(arg1 =="Free")
     {
-        while(!ui->variants->isEmpty())
-            on_removeVariant_clicked();
+        while (QLayoutItem* item = ui->variants->takeAt(0)) {
+            delete item->widget();
+            delete item;
+        }
         on_addVariant_clicked();
+        ui->removeVariant->setEnabled(false);
+        ui->addVariant->setEnabled(false);
+    }
+    else
+    {
+        ui->removeVariant->setEnabled(true);
+        ui->addVariant->setEnabled(true);
     }
 }
 
 void Question::on_removeVariant_clicked()
 {
-    ui->variants->removeItem(ui->variants->itemAt(ui->variants->count()-1));
+    QLayoutItem* item = ui->variants->takeAt(ui->variants->count()-1);
+    if (!item) return;
+    delete item->widget();
+    delete item;
 }
 
 
