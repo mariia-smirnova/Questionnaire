@@ -18,6 +18,7 @@ public:
 
 private:
     Ui::Constructor *ui;
+    QString toJson() const;
 
     // QWidget interface
 protected:
@@ -28,6 +29,8 @@ protected:
     // QWidget interface
 protected:
     void dragMoveEvent(QDragMoveEvent *event) override;
+private slots:
+    void on_pushButton_clicked();
 };
 
 #endif // CONSTRUCTOR_H

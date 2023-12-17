@@ -6,12 +6,16 @@
 #include <QDrag>
 #include <QMouseEvent>
 #include "multipleanswer.h"
+#include  "question.h"
+#include <QJsonArray>
+#include <QJsonDocument>
 
 Constructor::Constructor(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Constructor)
 {
     ui->setupUi(this);
+    ui->left->addWidget(new Question);
 
     setAcceptDrops(true);
 }
@@ -19,6 +23,22 @@ Constructor::Constructor(QWidget *parent) :
 Constructor::~Constructor()
 {
     delete ui;
+}
+
+QString Constructor::toJson() const
+{
+    QJsonObject result;
+    result.insert("count questions", ui->left->count()-1/*из-за учета спейсера*/);
+    QJsonArray questions;
+    for (int i=0; i<ui->left->count(); i++)
+    {
+        auto q = dynamic_cast<Question*>(ui->left->takeAt(i)->widget());
+        if (!q) continue;
+        questions.push_back(q->toJson());
+    }
+    result.insert("list", questions);
+    QJsonDocument doc(result);
+    return doc.toJson(QJsonDocument::Indented);
 }
 
 
@@ -86,3 +106,9 @@ void Constructor::dragMoveEvent(QDragMoveEvent *event)
         event->ignore();
     }
 }
+
+void Constructor::on_pushButton_clicked()
+{
+    qDebug()<<toJson();
+}
+

@@ -1,6 +1,7 @@
 #include "question.h"
 #include "ui_question.h"
 #include <QLineEdit>
+#include <QJsonArray>
 
 Question::Question(QWidget *parent) :
     QWidget(parent),
@@ -12,6 +13,29 @@ Question::Question(QWidget *parent) :
 Question::~Question()
 {
     delete ui;
+}
+
+QJsonObject Question::toJson() const
+{
+    QJsonObject result;
+    result.insert("type",ui->typeQuestion->currentText().toLower());
+    result.insert("question", ui->question->toPlainText());
+    if(ui->typeQuestion->currentText()=="Free")
+    {
+        result.insert("answer","");
+        return result;
+    }
+    result.insert("count answers", ui->variants->count());
+    QJsonArray answers;
+    for(int i=0; i<ui->variants->count(); i++)
+    {
+        QJsonObject answer;
+        answer.insert("mark",false);
+        answer.insert("text",dynamic_cast<QLineEdit*>(ui->variants->takeAt(i)->widget())->text());
+        answers.push_back(answer);
+    }
+    result.insert("answers",answers);
+    return result;
 }
 
 void Question::on_typeQuestion_currentTextChanged(const QString &arg1)

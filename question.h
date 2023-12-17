@@ -2,6 +2,7 @@
 #define QUESTION_H
 
 #include <QWidget>
+#include <QJsonObject>
 
 namespace Ui {
 class Question;
@@ -14,6 +15,7 @@ class Question : public QWidget
 public:
     explicit Question(QWidget *parent = nullptr);
     ~Question();
+    QJsonObject toJson() const;
 
 private slots:
     void on_typeQuestion_currentTextChanged(const QString &arg1);
