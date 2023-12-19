@@ -7,6 +7,7 @@
 #include <QMouseEvent>
 #include "multipleanswer.h"
 #include  "question.h"
+#include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
 
@@ -32,10 +33,9 @@ QString Constructor::toJson() const
     QJsonArray questions;
     for (int i=0; i<ui->left->count(); i++)
     {
-        auto q = dynamic_cast<Question*>(ui->left->takeAt(i)->widget());
+        auto q = dynamic_cast<Question*>(ui->left->itemAt(i)->widget());
         if (!q) continue;
-        questions.push_back(q->toJson());
-    }
+        questions.push_back(q->toJson());    }
     result.insert("list", questions);
     QJsonDocument doc(result);
     return doc.toJson(QJsonDocument::Indented);
@@ -84,7 +84,7 @@ void Constructor::dropEvent(QDropEvent *event)
         dataStream >> str;
         auto b = new QLabel(str);
         ui->right->addWidget(b);*/
-        ui->left->addWidget(new MultipleAnswer("?", {"","","",""}));
+        ui->left->addWidget(new Question);
 
         event->setDropAction(Qt::MoveAction);
         event->accept();
@@ -109,6 +109,12 @@ void Constructor::dragMoveEvent(QDragMoveEvent *event)
 
 void Constructor::on_pushButton_clicked()
 {
-    qDebug()<<toJson();
+    auto str = toJson();
+    QFile file;
+    file.setFileName("test1.json");
+    file.open(QIODevice::WriteOnly | QIODevice::Text);
+    QTextStream stream( &file );
+    stream << str;
+    file.close();
 }
 

@@ -31,7 +31,7 @@ QJsonObject Question::toJson() const
     {
         QJsonObject answer;
         answer.insert("mark",false);
-        answer.insert("text",dynamic_cast<QLineEdit*>(ui->variants->takeAt(i)->widget())->text());
+        answer.insert("text",dynamic_cast<QLineEdit*>(ui->variants->itemAt(i)->widget())->text());
         answers.push_back(answer);
     }
     result.insert("answers",answers);
