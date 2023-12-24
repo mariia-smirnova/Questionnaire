@@ -1,18 +1,22 @@
 #include "multipleanswer.h"
 #include "ui_multipleanswer.h"
 #include <QCheckBox>
+#include <QJsonArray>
 
-MultipleAnswer::MultipleAnswer(QString question, QList<QPair<bool,QString>> answers, QWidget *parent) :
+MultipleAnswer::MultipleAnswer(QJsonObject jsonobj, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MultipleAnswer)
 {
     ui->setupUi(this);
-    ui->question->setText(question);
-    for(const auto& answer:answers)
+    ui->question->setText(jsonobj["question"].toString());
+    QJsonArray answers = jsonobj["answers"].toArray();
+    for(const QJsonValue& answer:answers)
     {
-        auto box = new QCheckBox(answer.second);
-        box ->setChecked(answer.first);
-        box->setEnabled(false);
+        QJsonObject ans = answer.toObject();
+        auto box = new QCheckBox(ans["text"].toString());
+        box ->setChecked(ans["mark"].toBool());
+        //box->setEnabled(false);
+        box->setEnabled(ans["mark"].isNull());
         ui->answers->addWidget(box);
     }
 }

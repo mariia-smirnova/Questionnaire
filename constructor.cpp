@@ -5,7 +5,6 @@
 #include <QMimeData>
 #include <QDrag>
 #include <QMouseEvent>
-#include "multipleanswer.h"
 
 Constructor::Constructor(QWidget *parent) :
     QWidget(parent),
@@ -64,7 +63,6 @@ void Constructor::dropEvent(QDropEvent *event)
         dataStream >> str;
         auto b = new QLabel(str);
         ui->right->addWidget(b);*/
-        ui->left->addWidget(new MultipleAnswer("?", {{true, "answer"}}));
 
         event->setDropAction(Qt::MoveAction);
         event->accept();

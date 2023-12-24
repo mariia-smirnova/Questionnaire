@@ -2,6 +2,7 @@
 #define SINGLEANSWER_H
 
 #include <QWidget>
+#include <QJsonObject>
 
 namespace Ui {
 class SingleAnswer;
@@ -12,7 +13,7 @@ class SingleAnswer : public QWidget
     Q_OBJECT
 
 public:
-    explicit SingleAnswer(QWidget *parent = nullptr);
+    explicit SingleAnswer(QJsonObject jsonobj, QWidget *parent= nullptr);
     ~SingleAnswer();
 
 private:
