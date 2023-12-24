@@ -20,7 +20,7 @@ ReadyAnswers::ReadyAnswers(QWidget *parent) :
     file.close();
     for (auto widget:list)
     {
-        ui->verticalLayout->addWidget(widget);
+        ui->questions->layout()->addWidget(widget);
     }
 }
 
