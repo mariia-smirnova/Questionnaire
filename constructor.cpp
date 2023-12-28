@@ -28,7 +28,7 @@ Constructor::~Constructor()
 QString Constructor::toJson() const
 {
     QJsonObject result;
-    result.insert("count questions", ui->left->layout()->count()-1/*из-за учета спейсера*/);
+    //result.insert("count questions", ui->left->layout()->count()-1/*из-за учета спейсера*/);
     QJsonArray questions;
     for (int i=0; i<ui->left->layout()->count(); i++)
     {
@@ -108,14 +108,12 @@ void Constructor::dragMoveEvent(QDragMoveEvent *event)
 
 void Constructor::on_pushButton_clicked()
 {
-/*    auto str = toJson();
+    auto str = toJson();
     QFile file;
     file.setFileName("test1.json");
     file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream stream( &file );
     stream << str;
     file.close();
-*/
-    qDebug()<<ui->left->layout()->count();
 }
 

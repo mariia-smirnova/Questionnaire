@@ -22,15 +22,15 @@ QJsonObject Question::toJson() const
     result.insert("question", ui->question->toPlainText());
     if(ui->typeQuestion->currentText()=="Free")
     {
-        result.insert("answer","");
+        //result.insert("answer","");
         return result;
     }
-    result.insert("count answers", ui->variants->count());
+    //result.insert("count answers", ui->variants->count());
     QJsonArray answers;
     for(int i=0; i<ui->variants->count(); i++)
     {
         QJsonObject answer;
-        answer.insert("mark",false);
+        //answer.insert("mark",false);
         answer.insert("text",dynamic_cast<QLineEdit*>(ui->variants->itemAt(i)->widget())->text());
         answers.push_back(answer);
     }
@@ -46,7 +46,6 @@ void Question::on_typeQuestion_currentTextChanged(const QString &arg1)
             delete item->widget();
             delete item;
         }
-        on_addVariant_clicked();
         ui->removeVariant->setEnabled(false);
         ui->addVariant->setEnabled(false);
     }
