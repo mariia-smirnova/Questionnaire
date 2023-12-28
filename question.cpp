@@ -71,3 +71,9 @@ void Question::on_addVariant_clicked()
     ui->variants->addWidget(new QLineEdit);
 }
 
+
+void Question::on_deleteButton_clicked()
+{
+    delete this;
+}
+
