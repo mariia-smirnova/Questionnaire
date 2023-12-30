@@ -13,15 +13,12 @@ ReadyAnswers::ReadyAnswers(QWidget *parent) :
     ui(new Ui::ReadyAnswers)
 {
     ui->setupUi(this);
-    QFile file;
-    file.setFileName("test.json");
-    file.open(QIODevice::ReadOnly | QIODevice::Text);
-    auto list = fromJson(file.readAll());
+    /*auto list = fromJson(file.readAll());
     file.close();
     for (auto widget:list)
     {
         ui->questions->layout()->addWidget(widget);
-    }
+    }*/
 }
 
 
