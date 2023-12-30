@@ -2,6 +2,7 @@
 #define FREEANSWER_H
 
 #include <QWidget>
+#include <QJsonObject>
 
 namespace Ui {
 class FreeAnswer;
@@ -12,7 +13,7 @@ class FreeAnswer : public QWidget
     Q_OBJECT
 
 public:
-    explicit FreeAnswer(QWidget *parent = nullptr);
+    explicit FreeAnswer(QJsonObject jsonobj, QWidget *parent = nullptr);
     ~FreeAnswer();
 
 private:

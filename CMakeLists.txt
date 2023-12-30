@@ -22,6 +22,7 @@ singleanswer.h singleanswer.cpp singleanswer.ui
 multipleanswer.h multipleanswer.cpp multipleanswer.ui
 freeanswer.h freeanswer.cpp freeanswer.ui
 question.h question.cpp question.ui
+readyanswers.h readyanswers.cpp readyanswers.ui
 )
 
 

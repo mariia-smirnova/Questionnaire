@@ -1,6 +1,7 @@
 #ifndef MULTIPLEANSWER_H
 #define MULTIPLEANSWER_H
 
+#include <QJsonObject>
 #include <QWidget>
 
 namespace Ui {
@@ -12,7 +13,7 @@ class MultipleAnswer : public QWidget
     Q_OBJECT
 
 public:
-    explicit MultipleAnswer(QString question, QVector<QString> answers, QWidget *parent = nullptr);
+    explicit MultipleAnswer(QJsonObject jsonobj, QWidget *parent = nullptr);
     ~MultipleAnswer();
 
 private:
