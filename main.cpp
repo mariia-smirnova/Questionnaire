@@ -4,7 +4,8 @@
 #include "readyanswers.h"
 #include <QtSql>
 #include <QDebug>
-
+#include "ui_constructor.h"
+#include "ui_readyanswers.h"
 
 int main(int argc, char *argv[])
 {
@@ -12,9 +13,7 @@ int main(int argc, char *argv[])
     Constructor obj;
     obj.show();
     ReadyAnswers forStudent;
-    forStudent.show();
     ReadyAnswers forTeacher;
-    forTeacher.show();
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("example.db");
@@ -27,29 +26,43 @@ int main(int argc, char *argv[])
 
     // Подготовка таблицы, если её нет
     QSqlQuery query;
-    query.exec("CREATE TABLE IF NOT EXISTS employees (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, age INTEGER)");
-
-    // Вставка данных в таблицу
-    query.prepare("INSERT INTO employees (name, age) VALUES (:name, :age)");
-    query.bindValue(":name", "Иванов");
-    query.bindValue(":age", 25);
-
-    if (!query.exec()) {
-        qDebug() << "Ошибка при вставке данных:" << query.lastError().text();
-            return -1;
+    if(!query.exec("CREATE TABLE IF NOT EXISTS survey ("
+                    "survey_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    "json_data TEXT)"))
+    {
+        qDebug()<<"не удалось создать таблицу 'survey':"<<query.lastError().text();
+    }
+    if(!query.exec("CREATE TABLE IF NOT EXISTS response ("
+                    "response_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    "survey_id INTEGER, "
+                    "json_data TEXT)"))
+    {
+        qDebug()<<"не удалось создать таблицу 'response':"<<query.lastError().text();
     }
 
-    // Чтение данных из таблицы
-    query.exec("SELECT * FROM employees");
-    while (query.next()) {
-        QString name = query.value(1).toString();
-        int age = query.value(2).toInt();
-        qDebug() << "Имя:" << name << "Возраст:" << age;
-    }
-
-    // Закрытие базы данных
-    db.close();
-
+    QObject::connect(obj.ui->pushButton, &QPushButton::clicked, [&](){
+        QSqlQuery q;
+        q.prepare("INSERT INTO survey (json_data) VALUES (:json)");
+        q.bindValue(":json",obj.toJson());
+        if(!q.exec()){
+            qDebug()<<"не удалось добавить данные в таблицу survey:"<<q.lastError().text();
+        }
+        forStudent.show();
+        if(!q.exec("SELECT json_data FROM survey WHERE survey_id = 1")){
+            qDebug()<<q.lastError().text();
+        }
+        if(!q.next()) qDebug()<<"нет данных";
+        forStudent.readJson(q.value(0).toString());
+    });
+    QObject::connect(forStudent.ui->pushButton, &QPushButton::clicked, [&](){
+        QSqlQuery q;
+        q.prepare("INSERT INTO response (survey_id, json_data) VALUES (?, ?)");
+        q.bindValue( 1, forStudent.toJson());
+        q.bindValue(0,1);
+        if(!q.exec()){
+            qDebug()<<"не удалось добавить данные в таблицу survey:"<<q.lastError().text();
+        }
+    });
 
     return a.exec();
 }

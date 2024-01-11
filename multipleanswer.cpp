@@ -25,3 +25,21 @@ MultipleAnswer::~MultipleAnswer()
 {
     delete ui;
 }
+
+QJsonObject MultipleAnswer::toJson() const
+{
+    QJsonObject result;
+    result.insert("type", "multiple");
+    result.insert("question", ui->question->toPlainText());
+    QJsonArray answers;
+    for(int i=0; i<ui->variants->count(); i++)
+    {
+        auto box = dynamic_cast<QCheckBox*>(ui->answers->itemAt(i)->widget());
+        QJsonObject answer;
+        answer.insert("mark",box->isChecked());
+        answer.insert("text", box->text());
+        answers.push_back(answer);
+    }
+    result.insert("answers",answers);
+    return result;
+}

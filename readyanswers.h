@@ -14,9 +14,11 @@ class ReadyAnswers : public QWidget
 public:
     explicit ReadyAnswers(QWidget *parent = nullptr);
     ~ReadyAnswers();
+    void readJson(QString json);
+    Ui::ReadyAnswers *ui;
+    QString toJson() const;
 
 private:
-    Ui::ReadyAnswers *ui;
     static QList<QWidget*> fromJson(QString str);
 };
 

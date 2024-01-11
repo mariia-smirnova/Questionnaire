@@ -3,12 +3,13 @@
 
 #include <QWidget>
 #include <QJsonObject>
+#include "itojson.h"
 
 namespace Ui {
 class SingleAnswer;
 }
 
-class SingleAnswer : public QWidget
+class SingleAnswer : public QWidget, public IToJson
 {
     Q_OBJECT
 
@@ -18,6 +19,10 @@ public:
 
 private:
     Ui::SingleAnswer *ui;
+
+    // IToJson interface
+public:
+    QJsonObject toJson() const override;
 };
 
 #endif // SINGLEANSWER_H

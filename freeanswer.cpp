@@ -15,3 +15,13 @@ FreeAnswer::~FreeAnswer()
 {
     delete ui;
 }
+
+QJsonObject FreeAnswer::toJson() const
+{
+    QJsonObject result;
+    result.insert("type", "free");
+    result.insert("question", ui->question->toPlainText());
+    result.insert("answer",ui->answer->text());
+    return result;
+}
+

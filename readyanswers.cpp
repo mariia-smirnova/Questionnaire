@@ -13,18 +13,36 @@ ReadyAnswers::ReadyAnswers(QWidget *parent) :
     ui(new Ui::ReadyAnswers)
 {
     ui->setupUi(this);
-    /*auto list = fromJson(file.readAll());
-    file.close();
-    for (auto widget:list)
-    {
-        ui->questions->layout()->addWidget(widget);
-    }*/
 }
 
 
 ReadyAnswers::~ReadyAnswers()
 {
     delete ui;
+}
+
+void ReadyAnswers::readJson(QString json)
+{
+    auto list = fromJson(json);
+    for (auto widget:list)
+    {
+        ui->questions->layout()->addWidget(widget);
+    }
+}
+
+QString ReadyAnswers::toJson() const
+{
+    QJsonObject result;
+    QJsonArray questions;
+    for (int i=0; i<ui->questions->layout()->count(); i++)
+    {
+        auto w = dynamic_cast<IToJson*>(ui->questions->layout()->itemAt(i)->widget());
+        if (!w) continue;
+        questions.push_back(w->toJson());
+    }
+    result.insert("list", questions);
+    QJsonDocument doc(result);
+    return doc.toJson(QJsonDocument::Indented);
 }
 
 QList<QWidget *> ReadyAnswers::fromJson(QString str)

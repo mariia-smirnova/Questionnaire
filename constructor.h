@@ -16,7 +16,6 @@ public:
     explicit Constructor(QWidget *parent = nullptr);
     ~Constructor();
 
-private:
     Ui::Constructor *ui;
     QString toJson() const;
 
