@@ -108,12 +108,12 @@ void Constructor::dragMoveEvent(QDragMoveEvent *event)
 
 void Constructor::on_pushButton_clicked()
 {
-    auto str = toJson();
+    /*auto str = toJson();
     QFile file;
     file.setFileName("test1.json");
     file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream stream( &file );
     stream << str;
-    file.close();
+    file.close();*/
 }
 

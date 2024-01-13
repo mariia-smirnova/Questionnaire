@@ -32,7 +32,7 @@ QJsonObject MultipleAnswer::toJson() const
     result.insert("type", "multiple");
     result.insert("question", ui->question->toPlainText());
     QJsonArray answers;
-    for(int i=0; i<ui->variants->count(); i++)
+    for(int i=0; i<ui->answers->count(); i++)
     {
         auto box = dynamic_cast<QCheckBox*>(ui->answers->itemAt(i)->widget());
         QJsonObject answer;

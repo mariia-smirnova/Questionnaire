@@ -62,6 +62,11 @@ int main(int argc, char *argv[])
         if(!q.exec()){
             qDebug()<<"не удалось добавить данные в таблицу survey:"<<q.lastError().text();
         }
+        forTeacher.show();
+        if(!q.exec("SELECT json_data FROM response WHERE survey_id = 1"))
+            qDebug()<<q.lastError().text();
+        if(!q.next()) qDebug()<<"Нет ответов";
+        forTeacher.readJson(q.value(0).toString());
     });
 
     return a.exec();

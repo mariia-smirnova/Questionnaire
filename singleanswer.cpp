@@ -31,7 +31,7 @@ QJsonObject SingleAnswer::toJson() const
     result.insert("type", "single");
     result.insert("question", ui->question->toPlainText());
     QJsonArray answers;
-    for(int i=0; i<ui->variants->count(); i++)
+    for(int i=0; i<ui->answers->count(); i++)
     {
         auto button = dynamic_cast<QRadioButton*>(ui->answers->itemAt(i)->widget());
         QJsonObject answer;
